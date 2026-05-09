@@ -1,61 +1,38 @@
-# New LangGraph Project
+# ScratchClaw
 
-[![CI](https://github.com/langchain-ai/new-langgraph-project/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/langchain-ai/new-langgraph-project/actions/workflows/unit-tests.yml)
-[![Integration Tests](https://github.com/langchain-ai/new-langgraph-project/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/langchain-ai/new-langgraph-project/actions/workflows/integration-tests.yml)
+[English](README.md) | [中文](README_CN.md)
 
-This template demonstrates a simple application implemented using [LangGraph](https://github.com/langchain-ai/langgraph), designed for showing how to get started with [LangGraph Server](https://langchain-ai.github.io/langgraph/concepts/langgraph_server/#langgraph-server) and using [LangGraph Studio](https://langchain-ai.github.io/langgraph/concepts/langgraph_studio/), a visual debugging IDE.
+> Build an AI coding agent from scratch — a hands-on reimplementation of Claude Code/OpenClaw, step by step.
 
-<div align="center">
-  <img src="./static/studio_ui.png" alt="Graph view in LangGraph studio UI" width="75%" />
-</div>
+## Overview
 
-The core logic defined in `src/agent/graph.py`, showcases an single-step application that responds with a fixed string and the configuration provided.
-
-You can extend this graph to orchestrate more complex agentic workflows that can be visualized and debugged in LangGraph Studio.
+ScratchClaw is an educational project that rebuilds an AI-powered coding agent from the ground up. Instead of using a black-box CLI, this project dissects every component — LLM interaction, tool execution, agent loop, and sandbox — so you can understand how modern AI coding agents work under the hood.
 
 ## Getting Started
 
-1. Install dependencies, along with the [LangGraph CLI](https://langchain-ai.github.io/langgraph/concepts/langgraph_cli/), which will be used to run the server.
-
 ```bash
-cd path/to/your/app
-pip install -e . "langgraph-cli[inmem]"
+git clone https://github.com/sinha404/ScratchClaw.git
+cd ScratchClaw
+pip install -e .
 ```
 
-2. (Optional) Customize the code and project as needed. Create a `.env` file if you need to use secrets.
+Copy `.env.example` to `.env` (or create one) and fill in your API keys:
 
-```bash
-cp .env.example .env
+```env
+DEEPSEEK_API_KEY=your_key
+DEEPSEEK_BASE_URL=https://api.deepseek.com
 ```
 
-If you want to enable LangSmith tracing, add your LangSmith API key to the `.env` file.
+## Project Structure
 
-```text
-# .env
-LANGSMITH_API_KEY=lsv2...
+```
+src/agent/          # Core agent logic
+  my_llm.py         # LLM configuration
+  my_tools.py       # Tool definitions
+  env_utils.py      # Environment variable loading
+  graph.py          # LangGraph workflow definition
 ```
 
-3. Start the LangGraph Server.
+## License
 
-```shell
-langgraph dev
-```
-
-For more information on getting started with LangGraph Server, [see here](https://langchain-ai.github.io/langgraph/tutorials/langgraph-platform/local-server/).
-
-## How to customize
-
-1. **Define runtime context**: Modify the `Context` class in the `graph.py` file to expose the arguments you want to configure per assistant. For example, in a chatbot application you may want to define a dynamic system prompt or LLM to use. For more information on runtime context in LangGraph, [see here](https://langchain-ai.github.io/langgraph/agents/context/?h=context#static-runtime-context).
-
-2. **Extend the graph**: The core logic of the application is defined in [graph.py](./src/agent/graph.py). You can modify this file to add new nodes, edges, or change the flow of information.
-
-## Development
-
-While iterating on your graph in LangGraph Studio, you can edit past state and rerun your app from previous states to debug specific nodes. Local changes will be automatically applied via hot reload.
-
-Follow-up requests extend the same thread. You can create an entirely new thread, clearing previous history, using the `+` button in the top right.
-
-For more advanced features and examples, refer to the [LangGraph documentation](https://langchain-ai.github.io/langgraph/). These resources can help you adapt this template for your specific use case and build more sophisticated conversational agents.
-
-LangGraph Studio also integrates with [LangSmith](https://smith.langchain.com/) for more in-depth tracing and collaboration with teammates, allowing you to analyze and optimize your chatbot's performance.
-
+MIT
